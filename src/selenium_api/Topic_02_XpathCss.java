@@ -79,6 +79,7 @@ public class Topic_02_XpathCss {
 		System.out.println("Check Password Error Message in case logging with password incorrect");
 		String passwordErrorMsg = driver.findElement(By.xpath("//div[@id='advice-validate-password-pass']")).getText();
 		Assert.assertEquals(passwordErrorMsg, "Please enter 6 or more characters without leading or trailing spaces.");
+		
 	}
 
 	@AfterClass
