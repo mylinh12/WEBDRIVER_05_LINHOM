@@ -29,7 +29,6 @@ public class Topic_01_CheckEnvironment {
 	  driver.get("http://demo.guru99.com/v4/");
 	  driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	  driver.manage().window().maximize();
-	  
   }
 
   @AfterClass
