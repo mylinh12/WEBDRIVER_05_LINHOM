@@ -128,6 +128,7 @@ public class Topic_02_XpathCss {
 		driver.findElement(By.xpath("//a[@title='Log Out']")).click();
 		
 		System.out.println("Check website navigate to hompage after logging out successfully");
+		Thread.sleep(20000);
 		String homePageTitle = driver.getTitle();
 		Assert.assertEquals(homePageTitle, "Home page");
 	}
