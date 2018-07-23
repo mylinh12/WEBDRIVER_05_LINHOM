@@ -174,6 +174,34 @@ public class Topic_03_WebElement_WebBrowser {
 		}
 	}
 
+	@Test
+	public void TC_03() throws InterruptedException{
+		
+		// Define variables
+		WebElement ageUnder18, interestsDevelopment;
+		
+		// Locators
+		ageUnder18 = driver.findElement(By.xpath("//input[@id='under_18']"));
+		interestsDevelopment = driver.findElement(By.xpath("//input[@id='development']"));
+		
+		// Action with elements
+		ageUnder18.click();
+		Thread.sleep(3000);
+		
+		interestsDevelopment.click();
+		Thread.sleep(3000);
+		
+		if(ageUnder18.isSelected()==false) {
+			ageUnder18.click();
+			Thread.sleep(3000);
+		}
+		
+		if(interestsDevelopment.isSelected()==false) {
+			ageUnder18.click();
+			Thread.sleep(3000);
+		}
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
