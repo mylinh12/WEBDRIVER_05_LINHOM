@@ -37,8 +37,7 @@ public class Topic_03_WebElement_WebBrowser {
 
 	@Test
 	public void TC_01() throws InterruptedException {
-		System.out.println("Check status of <Email/ Age (Under 18)/ Education> fields are displaying whether on page or not");
-		
+	
 		// Define variables
 		WebElement email, age, education;
 		boolean isEmamilDisplayed = false, isAgeDisplayed = false, isEducationDisplayed = false;
@@ -54,6 +53,8 @@ public class Topic_03_WebElement_WebBrowser {
 		isEducationDisplayed = education.isDisplayed();
 		
 		// If elememnts are displaying, user inputs valid value into element fields
+		
+		System.out.println("\n--------------- Check elements are displayed ---------------");
 		if (isEmamilDisplayed == true) {
 			email.sendKeys("Automation Testing");
 			Thread.sleep(3000);
@@ -72,11 +73,11 @@ public class Topic_03_WebElement_WebBrowser {
 	
 	@Test
 	public void TC_02() {
-		System.out.println("Check <Email/ Age (Under 18)/ Education/ Job Role 01/ Interests (Development)/ Slider 01/> Button is enabled");
+		
 		
 		// Define variables
 		WebElement email, ageUnder18, education, jobRole01, interestsDevelopment, slider01, password,
-				ageRadiobuttonIsDisabled, riography, jobRole02, interestsCheckboxIsDisabled, slider02;
+				ageRadiobuttonIsDisabled, biography, jobRole02, interestsCheckboxIsDisabled, slider02;
 
 		// Locator of elements
 		email = driver.findElement(By.xpath("//input[@id='mail']"));
@@ -87,13 +88,14 @@ public class Topic_03_WebElement_WebBrowser {
 		slider01 = driver.findElement(By.xpath("//input[@id='slider-1']"));
 		password = driver.findElement(By.xpath("//input[@id='password']"));
 		ageRadiobuttonIsDisabled = driver.findElement(By.xpath("//input[@id='radio-disabled']"));
-		riography = driver.findElement(By.xpath("//textarea[@id='bio']"));
+		biography = driver.findElement(By.xpath("//textarea[@id='bio']"));
 		jobRole02 = driver.findElement(By.xpath("//select[@id='job2']"));
 		interestsCheckboxIsDisabled = driver.findElement(By.xpath("//input[@id='check-disbaled']"));
 		slider02 = driver.findElement(By.xpath("//input[@id='slider-2']"));
 		
 		// Check elements are enabled
-		System.out.println("Check elements are enabled, if that element is enabled, print message '<that element> is enabled'");
+		System.out.println("\n\nCheck <Email/ Age (Under 18)/ Education/ Job Role 01/ Interests (Development)/ Slider 01/> Button is enabled");
+		System.out.println("\n--------------- Check elements are enabled ---------------");
 		
 		if (email.isEnabled()) {
 			System.out.println("<Email> field is enabled");
@@ -132,7 +134,8 @@ public class Topic_03_WebElement_WebBrowser {
 		}
 		
 		// Check elements are disabled
-		System.out.println("--------------- Check elements are disabled ---------------");
+		System.out.println("\n\nCheck <Password/ Age Radiobutton Is Disabled/ Biography/ Job Role 02/ Interests - Checkbox is disabled/ Slider 02/> Button is disable");
+		System.out.println("\n--------------- Check elements are disabled ---------------");
 		
 		if (password.isEnabled() == false) {
 			System.out.println("<Password> field is disable");
@@ -146,25 +149,25 @@ public class Topic_03_WebElement_WebBrowser {
 			System.out.println("<Age Radiobutton Is Disabled> field is enabled");
 		}
 		
-		if (riography.isEnabled() == false) {
-			System.out.println("<Riography> field is disable");
+		if (biography.isEnabled() == false) {
+			System.out.println("<Biography> field is disable");
 		} else {
-			System.out.println("<Riography> field is enabled");
+			System.out.println("<Biography> field is enabled");
 		}
 		
-		if (jobRole02.isEnabled()) {
+		if (jobRole02.isEnabled() == false ) {
 			System.out.println("<Job Role 02> field is disable");
 		} else {
 			System.out.println("<Job Role 02> field is enabled");
 		}
 		
-		if (interestsCheckboxIsDisabled.isEnabled()) {
+		if (interestsCheckboxIsDisabled.isEnabled() == false) {
 			System.out.println("<Interests - Checkbox is disabled> field is disable");
 		} else {
 			System.out.println("<Interests - Checkbox is disabled> field is enabled");
 		}
 		
-		if (slider02.isEnabled()) {
+		if (slider02.isEnabled() == false) {
 			System.out.println("<Slider 02> field is disable");
 		} else {
 			System.out.println("<Slider 02> field is enabled");
