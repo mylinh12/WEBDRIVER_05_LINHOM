@@ -272,7 +272,7 @@ public class Topic_03_WebElement_WebBrowser {
 
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get("http://daominhdam.890m.com/");
+		driver.get("http://daominhdam.890m.com/");;
 	}
 
 	@AfterClass
