@@ -40,7 +40,7 @@ public class Topic_03_WebElement_WebBrowser {
 	}
 
 	@Test
-	public void TC_01() throws InterruptedException {
+	public void TC_01() throws Exception {
 
 		// Define variables
 		WebElement email, age, education;
@@ -73,6 +73,7 @@ public class Topic_03_WebElement_WebBrowser {
 			education.sendKeys("Automation Testing");
 			Thread.sleep(3000);
 		}
+		
 	}
 
 	@Test
@@ -180,7 +181,7 @@ public class Topic_03_WebElement_WebBrowser {
 	}
 
 	@Test
-	public void TC_03() throws InterruptedException {
+	public void TC_03() throws Exception {
 
 		// Define variables
 		WebElement ageUnder18, interestsDevelopment;
@@ -208,7 +209,7 @@ public class Topic_03_WebElement_WebBrowser {
 	}
 
 	@Test
-	public void TC_04() throws InterruptedException {
+	public void TC_04() throws Exception {
 
 		// Run on Firefox browser
 		switchBrowser("FF");
