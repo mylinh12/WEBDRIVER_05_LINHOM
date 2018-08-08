@@ -36,12 +36,19 @@ public class Topic_00_TestCaseTemplate {
 	}
 
 	@Test
-	public void TC_01() {
+	public void TC_01() throws Exception {
 		
+		driver.get("http://live.guru99.com/");
+		
+		Thread.sleep(3000);
 	}
 	
 	@Test
-	public void TC_02() {
+	public void TC_02() throws Exception {
+		
+		driver.get("http://live.guru99.com/");
+		
+		Thread.sleep(3000);
 		
 	}
 
