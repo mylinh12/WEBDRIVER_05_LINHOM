@@ -31,7 +31,6 @@ public class Topic_00_TestCaseTemplate {
 		
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get("http://live.guru99.com/");
 		
 	}
 
