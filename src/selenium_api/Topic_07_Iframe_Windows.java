@@ -1,6 +1,7 @@
 package selenium_api;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -38,7 +39,7 @@ public class Topic_07_Iframe_Windows {
 		// System.setProperty("webdriver.ie.driver", ".\\driver\\IEDriverServer.exe");
 		// driver = new InternetExplorerDriver();
 		wait = new WebDriverWait(driver, 10);
-		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		
 	}
@@ -122,10 +123,67 @@ public class Topic_07_Iframe_Windows {
 		Thread.sleep(3000);
 	}
 	
+	/*Case 01: switch between 2 windows or 2 tabs via GUID*/
 	@Test
-	public void TC_02() throws Exception {
+	public void TC_02_Windows_CASE01() throws Exception {
 		
-		driver.get("http://live.guru99.com/");
+		// Step 01 - Truy cập vào trang: http://daominhdam.890m.com/
+		driver.get("http://daominhdam.890m.com/");
+		
+		// Get GUID of current page (parent page), thường thì GUID có dạng: DBE89D95-81B7-412E-A442-7CA3B78BBF09
+		String parentGUID = driver.getWindowHandle();
+		System.out.println("Title before = " + driver.getTitle());
+		Thread.sleep(3000);
+		
+		// Step 02 - Click "Opening a new window: Click Here" link -> Switch qua tab mới
+		driver.findElement(By.xpath("//a[text()='Click Here']")).click();
+		
+		// Switch to new window/ tab
+		switchToChildWindowByGUID(parentGUID);
+		
+		// Step 03 - Kiểm tra title của window mới = Google
+		String googleTitle = driver.getTitle();
+		System.out.println("Title after = " + googleTitle);
+		Assert.assertEquals(googleTitle, "Google");
+		
+		// Step 04 - Close window mới
+		closeAllWithoutParentWindows(parentGUID);
+
+		// Step 05 - Verify switch to parent window success
+		Assert.assertEquals(driver.getTitle(), "SELENIUM WEBDRIVER FORM DEMO");
+		
+		Thread.sleep(3000);
+		
+	}
+	
+	/*Case 02: switch between greater 2 windows or greater 2 tabs via Title*/
+	@Test
+	public void TC_02_Windows_CASE02() throws Exception {
+		
+		// Step 01 - Truy cập vào trang: http://daominhdam.890m.com/
+		driver.get("http://daominhdam.890m.com/");
+		
+		// Get GUID of current page (parent page), thường thì GUID có dạng: DBE89D95-81B7-412E-A442-7CA3B78BBF09
+		String parentGUID = driver.getWindowHandle();
+		System.out.println("Title before : " + driver.getTitle());
+		Thread.sleep(3000);
+		
+		// Step 02 - Click "Opening a new window: Click Here" link -> Switch qua tab mới
+		driver.findElement(By.xpath("//a[text()='Click Here']")).click();
+		
+		// Switch to new window/ tab
+		switchToWindowByTitle("Google");
+		
+		// Step 03 - Kiểm tra title của window mới = Google
+		String googleTitle = driver.getTitle();
+		System.out.println("Title after : " + googleTitle);
+		Assert.assertEquals(googleTitle, "Google");
+		
+		// Step 04 - Close window mới
+		closeAllWithoutParentWindows(parentGUID);
+		
+		// Step 05 - Verify switch to parent window success
+		Assert.assertEquals(driver.getTitle(), "SELENIUM WEBDRIVER FORM DEMO");
 		
 		Thread.sleep(3000);
 		
@@ -133,7 +191,77 @@ public class Topic_07_Iframe_Windows {
 
 	@AfterClass
 	public void afterClass() {
-		driver.quit();
+		 driver.quit();
+	}
+	
+	/*Method: Switch to child Windows (only 2 windows)*/
+	public void switchToChildWindowByGUID(String parentGUID) {
+		
+		// Get all current windows/ tabs
+		Set <String> allWindows = driver.getWindowHandles();
+		
+		// Duyệt qua tất cả các windows/ tabs
+		for (String runWindow : allWindows) {
+			
+			// Nếu window/ tab ID nào mà khác với ParentGUID thì switch qua
+			if(!runWindow.equals(parentGUID)) {
+				driver.switchTo().window(runWindow);
+				break;
+			}
+		}
 	}
 
+	/*Method: Switch to child Windows (greater 2 windows and title of pages are unique)*/
+	public void switchToWindowByTitle(String expectedTitle) {
+		
+		// Get all current windows/ tabs
+		Set <String> allWindows = driver.getWindowHandles();
+		
+		// Duyệt qua tất cả các windows/ tabs
+		for (String runWindow : allWindows) {
+			
+			// switch vào từng windows trước
+			driver.switchTo().window(runWindow);
+			
+			// Get ra title của window/ tab mà mình đã switch qua.
+			String currentWindowTitle=driver.getTitle();
+			
+			// kiểm tra title mà mình đã get mà bằng với expected title mà mình truyền vào thì break khỏi vòng for.
+			if(currentWindowTitle.equals(expectedTitle)) {
+				
+				// thoát khỏi vòng lặp for.
+				break;
+			}
+		}
+	}
+
+	/*Method: Đóng tất cả các windows/ tabs ngoại trừ parent window*/	
+	public boolean closeAllWithoutParentWindows(String parentGUID) {
+	
+		// Get all current windows/ tabs
+		Set <String> allWindows = driver.getWindowHandles();
+		
+		// Duyệt qua tất cả các windows/ tabs
+		for(String runWindow : allWindows) {
+			
+			// Nếu window/ tab ID nào mà khác với ParentGUID thì:
+			if(!runWindow.equals(parentGUID)) {
+				
+				// Switch qua window/ tab đó.
+				driver.switchTo().window(runWindow);
+				
+				// Close window/ tabs đó.
+				driver.close();
+			}
+		}
+		
+		// Switch về parent window
+		driver.switchTo().window(parentGUID);
+		
+		// Kiểm tra xem có còn đúng 1 window hay ko
+		if (driver.getWindowHandles().size() == 1)
+			return true;
+		else
+			return false;
+	}
 }
