@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterClass;
 
@@ -15,15 +16,15 @@ public class Topic_00_TestCaseTemplate {
 	@BeforeClass
 	public void beforeClass() {
 		// Firefox <=47 + selenium version 2.x.x
-		// driver = new FirefoxDriver();
+		driver = new FirefoxDriver();
 		
 		// Frirefox >=48 + selenium version 3.x.x
 		// System.setProperty("webdriver.gecko.driver", ".\\driver\\geckodriver.exe");
 		// driver = new FirefoxDriver();
 		
 		// Chrome
-		System.setProperty("webdriver.chrome.driver", ".\\driver\\chromedriver.exe");
-		driver = new ChromeDriver();
+		// System.setProperty("webdriver.chrome.driver", ".\\driver\\chromedriver.exe");
+		// driver = new ChromeDriver();
 		
 		// IE
 		// System.setProperty("webdriver.ie.driver", ".\\driver\\IEDriverServer.exe");
