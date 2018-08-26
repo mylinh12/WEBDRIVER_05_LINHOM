@@ -17,12 +17,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class Topic_07_Iframe_Windows {
+	
 	WebDriver driver;
 	WebDriverWait wait;
+	
 	@BeforeClass
 	public void beforeClass() {
-		
-		
 		
 		// Firefox <=47 + selenium version 2.x.x
 		driver = new FirefoxDriver();
@@ -38,7 +38,11 @@ public class Topic_07_Iframe_Windows {
 		// IE
 		// System.setProperty("webdriver.ie.driver", ".\\driver\\IEDriverServer.exe");
 		// driver = new InternetExplorerDriver();
+		
+		// Explicit Wait
 		wait = new WebDriverWait(driver, 10);
+		
+		// Implicit Wait / hay còn gọi là Global Wait (wait toàn cục) => cái Global này sẽ ảnh hưởng đến 2 hàm findElement và findElements.
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		
@@ -53,6 +57,7 @@ public class Topic_07_Iframe_Windows {
 		/*-------------- ISSUE 01 at Step 02: Handle an element display (sometime it displays, sometime it does not display -------------*/
 		// Step 02 - Close popup nếu có hiển thị (switch qua iframe nếu có) - F5 (refresh page) nhiều lần thì sẽ xuất hiện popup
 		// Vì cái popup này, lúc thì nó hiển thị, lúc thì ko, nên mình phải khai báo nó dạng <List> để tránh bị throw exception khi ko tìm được popup.
+		overrideGlobalWait(15);
 		List<WebElement> notificationIframes = driver.findElements(By.xpath("//iframe[@id='vizury-notification-template']"));
 		System.out.println("Number elements: " + notificationIframes.size());
 
@@ -71,6 +76,7 @@ public class Topic_07_Iframe_Windows {
 			// Switch to Top Windows
 			driver.switchTo().defaultContent();
 		}
+		overrideGlobalWait(30);
 
 		/*-------------- ISSUE 02 at Step 03: Handle dynamic iframe (id: it is random once page reloads --------------*/
 		// Step 03 - Verify đoạn text được hiển thị: What are you looking for? (switch qua iframe nếu có)
@@ -132,6 +138,7 @@ public class Topic_07_Iframe_Windows {
 		
 		// Get GUID of current page (parent page), thường thì GUID có dạng: DBE89D95-81B7-412E-A442-7CA3B78BBF09
 		String parentGUID = driver.getWindowHandle();
+		System.out.println("Parent GUID = " + parentGUID);
 		System.out.println("Title before = " + driver.getTitle());
 		Thread.sleep(3000);
 		
@@ -165,6 +172,7 @@ public class Topic_07_Iframe_Windows {
 		
 		// Get GUID of current page (parent page), thường thì GUID có dạng: DBE89D95-81B7-412E-A442-7CA3B78BBF09
 		String parentGUID = driver.getWindowHandle();
+		System.out.println("Parent GUID = " + parentGUID);
 		System.out.println("Title before : " + driver.getTitle());
 		Thread.sleep(3000);
 		
@@ -189,6 +197,69 @@ public class Topic_07_Iframe_Windows {
 		
 	}
 
+	@Test
+	public void TC_03_HdfcBankWindows() throws Exception {
+		
+		// Step 01 - Truy cập vào trang: http://www.hdfcbank.com/
+		driver.get("http://www.hdfcbank.com/");
+		String parentGUID = driver.getWindowHandle();
+		
+		// Step 02 - Kiểm tra và close quảng cáo nếu có xuất hiện
+		overrideGlobalWait(15);
+		List<WebElement> notificationIframes = driver.findElements(By.xpath("//iframe[@id='vizury-notification-template']"));
+		System.out.println("Number elements: " + notificationIframes.size());
+
+		if (notificationIframes.size() > 0) {
+			// Vì 'close popup' icon thuộc iframe, do đó phải switch qua iframe trước khi thao tác được với 'close popup' icon
+			driver.switchTo().frame(notificationIframes.get(0));
+
+			// click 'close popup' icon)
+			WebElement closePopup = driver.findElement(By.xpath("//div[@id='div-close']"));
+			JavascriptExecutor jsClosePopup = (JavascriptExecutor) driver;
+			Thread.sleep(3000);
+			jsClosePopup.executeScript("arguments[0].click();", closePopup);
+			System.out.println("Close popup!");
+
+			// Switch to Top Windows
+			driver.switchTo().defaultContent();
+		}
+		
+		overrideGlobalWait(30);
+		
+		// Step 03 - Click Angri link -> Mở ra tab/window mới -> Switch qua tab mới
+		driver.findElement(By.xpath("//a[text()='Agri']")).click();
+		switchToWindowByTitle("HDFC Bank Kisan Dhan Vikas e-Kendra");
+		Thread.sleep(3000);
+		
+		// Step 04 - Click Account Details link -> Mở ra tab/window mới -> Switch qua tab mới
+		driver.findElement(By.xpath("//p[text()='Account Details']")).click();
+		switchToWindowByTitle("Welcome to HDFC Bank NetBanking");
+		Thread.sleep(3000);
+		
+		// Step 05- Click Privacy Policy link (nằm trong frame) -> Mở ra tab/window mới -> Switch qua tab mới
+		// switch to frame 
+		WebElement footerFrame = driver.findElement(By.xpath("//frame[@name='footer']"));
+		driver.switchTo().frame(footerFrame);
+		Thread.sleep(3000);
+		
+		// click Privacy Policy link (nằm trong frame)
+		driver.findElement(By.xpath("//a[text()='Privacy Policy']")).click();
+		
+		// Switch qua tab mới
+		switchToWindowByTitle("HDFC Bank - Leading Bank in India, Banking Services, Private Banking, Personal Loan, Car Loan");
+		Thread.sleep(3000);
+		
+		// Step 06- Click CSR link on Privacy Policy page
+		driver.findElement(By.xpath("//a[text()='CSR']")).click();
+		
+		// Step 07-08 - Close tất cả popup khác - chỉ giữ lại parent window (http://www.hdfcbank.com/)
+		closeAllWithoutParentWindows(parentGUID);
+		Thread.sleep(3000);
+		Assert.assertEquals(driver.getTitle(), "HDFC Bank: Personal Banking Services");
+		
+		Thread.sleep(3000);
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		 driver.quit();
@@ -202,6 +273,8 @@ public class Topic_07_Iframe_Windows {
 		
 		// Duyệt qua tất cả các windows/ tabs
 		for (String runWindow : allWindows) {
+			
+			System.out.println("runWindow GUID = " + runWindow);
 			
 			// Nếu window/ tab ID nào mà khác với ParentGUID thì switch qua
 			if(!runWindow.equals(parentGUID)) {
@@ -219,6 +292,8 @@ public class Topic_07_Iframe_Windows {
 		
 		// Duyệt qua tất cả các windows/ tabs
 		for (String runWindow : allWindows) {
+			
+			System.out.println("runWindow GUID = " + runWindow);
 			
 			// switch vào từng windows trước
 			driver.switchTo().window(runWindow);
@@ -244,6 +319,8 @@ public class Topic_07_Iframe_Windows {
 		// Duyệt qua tất cả các windows/ tabs
 		for(String runWindow : allWindows) {
 			
+			System.out.println("runWindow GUID = " + runWindow);
+			
 			// Nếu window/ tab ID nào mà khác với ParentGUID thì:
 			if(!runWindow.equals(parentGUID)) {
 				
@@ -264,4 +341,10 @@ public class Topic_07_Iframe_Windows {
 		else
 			return false;
 	}
+
+	/* Method: Override Global Wait */
+	public void overrideGlobalWait(long timeout) {
+		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+	}
+
 }
