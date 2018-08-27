@@ -12,7 +12,9 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.testng.annotations.AfterClass;
 
 public class Topic_00_TestCaseTemplate {
+	
 	WebDriver driver;
+	
 	@BeforeClass
 	public void beforeClass() {
 		// Firefox <=47 + selenium version 2.x.x
