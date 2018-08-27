@@ -106,7 +106,7 @@ public class Topic_02_XpathCss {
 	}
 	
 	@Test
-	public void TC_05_CreateAnAccount() throws InterruptedException {
+	public void TC_05_CreateAnAccount() throws Exception {
 		driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
 		driver.findElement(By.xpath("//a[@title='Create an Account']")).click();
 		driver.findElement(By.xpath("//input[@id='firstname']")).sendKeys("Linh");
@@ -128,7 +128,7 @@ public class Topic_02_XpathCss {
 		driver.findElement(By.xpath("//a[@title='Log Out']")).click();
 		
 		System.out.println("Check website navigate to hompage after logging out successfully");
-		Thread.sleep(20000);
+		Thread.sleep(10000);
 		String homePageTitle = driver.getTitle();
 		Assert.assertEquals(homePageTitle, "Home page");
 	}
