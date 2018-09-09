@@ -44,7 +44,7 @@ public class Topic_10_Wait {
 		// System.setProperty("webdriver.ie.driver", ".\\driver\\IEDriverServer.exe");
 		// driver = new InternetExplorerDriver();
 		
-		waitExpicit = new WebDriverWait(driver, 30);
+		waitExpicit = new WebDriverWait(driver, 5);
 		
 		// driver.manage().window().maximize();
 		
