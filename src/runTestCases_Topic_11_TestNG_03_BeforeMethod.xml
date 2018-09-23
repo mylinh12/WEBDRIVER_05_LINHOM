@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Selenium Online 05" parallel="false">
+  <test name="Run Firefox">
+    <classes>
+      <class name="selenium_testng.Topic_11_TestNG_03_BeforeMethod"/>
+    </classes>
+  </test>
+</suite>

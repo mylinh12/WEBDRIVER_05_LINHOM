@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+  <test name="Run on Chrome">
+  <parameter name = "browser" value ="chrome"/>
+    <classes>
+      <class name="selenium_testng.Topic_11_TestNG_08_Parameter_MultiBrowsers"/>
+    </classes>
+  </test>
+  
+  <test name="Run on Firefox">
+  <parameter name = "browser" value ="firefox"/>
+    <classes>
+      <class name="selenium_testng.Topic_11_TestNG_08_Parameter_MultiBrowsers"/>
+    </classes>
+  </test>
+  
+  <test name="Run on IE">
+  <parameter name = "browser" value ="IE"/>
+    <classes>
+      <class name="selenium_testng.Topic_11_TestNG_08_Parameter_MultiBrowsers"/>
+    </classes>
+  </test>
+</suite>

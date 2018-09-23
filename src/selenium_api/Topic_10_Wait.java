@@ -126,7 +126,7 @@ public class Topic_10_Wait {
 		waitExpicit.until(ExpectedConditions.invisibilityOfElementLocated(byAjaxLoadingIcon));
 		
 		// Step 06 - Wait cho selected date = 09 được visible ((sử dụng: visibility) Xpath: //*[contains(@class,'rcSelected')]//a[text()='09']
-		waitExpicit.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='9']/parent::td[@class='rcSelected']")));
+		//waitExpicit.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()='9']/parent::td[@class='rcSelected']")));
 		Assert.assertTrue(driver.findElement(By.xpath("//a[text()='9']/parent::td[@class='rcSelected']")).isDisplayed());
 		
 		// Step 07 - Verify ngày đã chọn bằng = Sunday, September 09, 2018

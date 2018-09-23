@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Selenium Onlilne 05" parallel="false">
+  <test name="Run on Chrome">
+    <classes>
+      <class name="selenium_testng.Topic_11_TestNG_01_Annotations"/>
+    </classes>
+  </test>
+  
+  <!-- <test name="Run on Firefox">
+    <classes>
+      <class name="selenium_testng.TestNG_01_Annotations"/>
+    </classes>
+  </test>
+  
+  <test name="Run on IE">
+    <classes>
+      <class name="selenium_testng.TestNG_01_Annotations"/>
+    </classes>
+  </test> -->
+</suite>

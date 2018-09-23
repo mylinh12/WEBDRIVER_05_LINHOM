@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Run All Test Suites">
+	<suite-files>
+		<suite-file	path="runTestCases_Topic_11_TestNG_11a_SuiteA.xml" />
+		<suite-file	path="runTestCases_Topic_11_TestNG_11b_SuiteB.xml" />
+	</suite-files>
+</suite> <!-- Suite -->

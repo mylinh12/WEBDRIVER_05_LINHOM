@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+	<test name="Run on Firefox">
+		<groups>
+			<run>
+				<include name ="customer" />
+				<include name ="manager" />
+			</run>
+		</groups>
+		<classes>
+			<class name="selenium_testng.Topic_11_TestNG_04_groupTestCase" />
+		</classes>
+	</test>
+</suite>
