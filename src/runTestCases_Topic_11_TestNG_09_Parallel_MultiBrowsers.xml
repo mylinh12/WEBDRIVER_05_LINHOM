@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="Suite" parallel="tests" thread-count="2">
+<suite name="Bank GURU" parallel="tests" thread-count="2">
   <test name="Run on Chrome">
   <parameter name = "browser" value ="chrome"/>
     <classes>
