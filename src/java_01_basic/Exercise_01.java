@@ -71,14 +71,15 @@ public class Exercise_01 {
 		return count;
 	}
 
+	// Cach 1
 	public static int countDisplayingOfNumber(String originalString) {
 		int numberOfNumber = 0, numberOfLetter = 0, numberOfSymbol = 0;
 		char[] subChar = originalString.toCharArray();;
 		{
 			for (int i = 0; i < subChar.length; i++) {
-				if ((subChar[i] >= 'a' && subChar[i] <= 'z') || (subChar[i] >= 'A' && subChar[i] <= 'Z')) {
+				if (Character.isLetter(subChar[i])) {
 					numberOfLetter++;
-				} else if (subChar[i] >= '0' && subChar[i] <= '9') {
+				} else if (Character.isDigit(subChar[i])) {
 					numberOfNumber++;
 				} else {
 					numberOfSymbol++;
@@ -87,5 +88,23 @@ public class Exercise_01 {
 		}
 		return numberOfNumber;
 	}
+	
+	// Cach 2
+//	public static int countDisplayingOfNumber(String originalString) {
+//	int numberOfNumber = 0, numberOfLetter = 0, numberOfSymbol = 0;
+//	char[] subChar = originalString.toCharArray();;
+//	{
+//		for (int i = 0; i < subChar.length; i++) {
+//			if ((subChar[i] >= 'a' && subChar[i] <= 'z') || (subChar[i] >= 'A' && subChar[i] <= 'Z')) {
+//				numberOfLetter++;
+//			} else if (subChar[i] >= '0' && subChar[i] <= '9') {
+//				numberOfNumber++;
+//			} else {
+//				numberOfSymbol++;
+//			}
+//		}
+//	}
+//	return numberOfNumber;
+//}
 
 }
