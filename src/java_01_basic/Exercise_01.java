@@ -1,7 +1,5 @@
 package java_01_basic;
 
-import com.sun.org.apache.bcel.internal.generic.CPInstruction;
-
 public class Exercise_01 {
 
 	public static void main(String[] args) {
